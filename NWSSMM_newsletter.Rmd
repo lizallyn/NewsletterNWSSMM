@@ -1,0 +1,133 @@
+---
+title: "NWSSMM Biannual Newsletter - Spring 2024"
+output:
+  # readthedown, tabs
+  rmdformats::readthedown
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+# important metadata #
+# NWSSMM_newsletter.Rmd
+# created by: Clara Bird (birdc@oregonstate.edu/clara.birdferrer@gmail.com), GEMM Lab, OSU
+# created: August 2023
+
+# this document can be run to create the NWSSMM Biannual Newsletter
+# before knitting, run chunk below, and in console sign in/respond to google sheets prompt
+# then you can knit
+
+# this was created under R 4.1.2
+```
+
+```{r, include = FALSE}
+## RUN THIS CHUNK BEFORE KNITTING!!!!!!!!!!!!!!!!! ##
+
+#packges
+library(googledrive)
+library(googlesheets4) #https://www.tidyverse.org/blog/2020/05/googlesheets4-0-2-0/
+library(tidyverse)
+
+options(googledrive_quiet = TRUE)
+options(gargle_oauth_email = "birdc@oregonstate.edu")
+drive_auth(email="birdc@oregonstate.edu")
+
+#make sure that the link to the sheet is correct
+df_responses <- read_sheet("https://docs.google.com/spreadsheets/d/1tTIP-HUZuOHWXRFThQsO7wvLhqPxi3yR_GH1ae0GjrU/edit#gid=2106727867", col_types = "c", skip = 1)
+```
+
+
+```{r, echo=FALSE, results='asis'}
+df <- df_responses
+
+#make function for outputing content
+
+cats <- c("From the Chapter Leaders", "Research Update", "Fieldwork Update", "Publication", "Research Blooper", "Small Victory", "Photo")
+#loop for printing content
+for (i in 1:length(cats)){
+  #extract category
+  cat <- cats[i]
+  # print(cat)
+  if (cat == "From the Chair"){
+    #create category header
+    cat(paste("#","Message from the Chair",sep=" "))
+    #loop through updates for each category
+    dfx <- df %>% filter(is.na(df[[cat]]) == FALSE)
+    #chair name and email
+    cat(paste("\n <i>", dfx$Name[1]," (",dfx$Email[1],")</i>"," \n",sep = "")) #author and email
+    cat("\n \n \n \n")
+    #message from the chair
+    msg <- df %>%
+              filter(`From the Chair - Title` == "Message from the Chair") %>%
+              pull(`From the Chair`)
+    cat(paste("\n",msg,"\n \n",sep=" "))
+    #dates for your calendar
+    cat("\n \n \n \n")
+    cat(paste("##","Dates for your calendar","\n",sep=" ")) #update title
+    dates_msg <- df %>%
+                    filter(`From the Chair - Title` == "Dates for your calendar") %>%
+                    pull(`From the Chair`)
+    cat(paste("\n",dates_msg,"\n \n",sep=" "))
+    }
+
+  else if (any(!is.na(df[[cat]]))) {
+    if (cat == "Publication"){
+      #create category header
+      cat(paste("#",cat,"\n",sep=" "))
+      #loop through updates for each category
+      dfx <- df %>% filter(is.na(df[[cat]]) == FALSE)
+      for (i in 1:length(dfx[[cat]])){
+        #set up vars
+        up_title <- dfx[[paste(cat," - Title", sep = "")]][i]
+        up_author <- dfx$Name[i]
+        up_email <- dfx$Email[i]
+        update <- dfx[[cat]][i]
+        link <- dfx$`Publication Link`[i]
+        #print statements
+        cat("\n \n \n \n")
+        cat(paste("##",up_title,"\n",sep=" ")) #update title
+        cat(paste("\n <i>", up_author," (",up_email,")</i>"," \n",sep = "")) #author and email
+        cat(paste("\n",update,"\n \n",sep=" "))
+        cat(paste("\n","Publication available at this link:",link,"\n \n",sep=" "))
+      }}
+  
+      else if (cat == 'Photo') {
+        #create category header
+        cat(paste("#",cat,"\n",sep=" "))
+        #loop through updates for each category
+        dfx <- df %>% filter(is.na(df[[cat]]) == FALSE)
+        for (i in 1:length(dfx[[cat]])){
+          #set up vars
+          up_author <- dfx$Name[i]
+          up_email <- dfx$Email[i]
+          photofile <- with_drive_quiet(drive_download(dfx[[cat]][i],overwrite=TRUE))
+          caption <- dfx$`Photo Caption`[i]
+          #print statements
+          cat("\n \n \n \n")
+          cat(paste0("![](", photofile$local_path, ")\n\n"))
+          cat(paste("\n <i>", up_author," (",up_email,")</i>"," \n",sep = "")) #author and email
+          cat(paste("\n",caption,"\n \n",sep=" "))
+          cat("******")
+      }}
+    
+      else{
+        #create category header
+        cat(paste("#",cat,"\n",sep=" "))
+        #loop through updates for each category
+        dfx <- df %>% filter(is.na(df[[cat]]) == FALSE)
+        for (i in 1:length(dfx[[cat]])){
+          #set up vars
+          up_title <- dfx[[paste(cat," - Title", sep = "")]][i]
+          up_author <- dfx$Name[i]
+          up_email <- dfx$Email[i]
+          update <- dfx[[cat]][i]
+          #print statements
+          cat("\n \n \n \n")
+          cat(paste("##",up_title,"\n",sep=" ")) #update title
+          cat(paste("\n <i>", up_author," (",up_email,")</i>"," \n",sep = "")) #author and email
+          cat(paste("\n",update,"\n \n",sep=" "))
+      }}}
+}
+```

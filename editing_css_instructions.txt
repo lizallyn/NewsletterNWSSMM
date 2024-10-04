@@ -1,0 +1,18 @@
+How to get the logo as part of the HTML template for the PCFG biannual newsletter
+Clara Bird, May 2022
+
+
+1. Open RStudio
+
+2. Open the readthedown.css file in the biannual_report folder… navigate to line 846 and change the file path to the logo to the relevant file path on your computer
+
+3. Install the rmdformats package if it hasn’t already been installed (install.packages(“rmdformats”))
+
+4. In finder/file explorer navigate to where the package is saved…. On my computer this is the file path:
+/Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmdformats/templates/readthedown
+
+5. Within that folder go to templates/readthedown
+
+6. Drag and drop the readthedown.css file in the biannual_report folder (that you recently edited) into this folder to replace the original file
+
+You should be good to go!
