@@ -1,0 +1,333 @@
+"0","#loop for printing content
+for (i in 1:length(cats)){
+  #extract category
+  cat <- cats[i]
+  # print(cat)
+  if (cat == ""From the Chair""){
+    #create category header
+    cat(paste(""#"",""Message from the Chair"",sep="" ""))
+    #loop through updates for each category
+    dfx <- df %>% filter(is.na(df[[cat]]) == FALSE)
+    #chair name and email
+    cat(paste(""\n <i>"", dfx$Name[1],"" ("",dfx$Email[1],"")</i>"","" \n"",sep = """")) #author and email
+    cat(""\n \n \n \n"")
+    #message from the chair
+    msg <- df %>%
+              filter(`From the Chair - Title` == ""Message from the Chair"") %>%
+              pull(`From the Chair`)
+    cat(paste(""\n"",msg,""\n \n"",sep="" ""))
+    #dates for your calendar
+    cat(""\n \n \n \n"")
+    cat(paste(""##"",""Dates for your calendar"",""\n"",sep="" "")) #update title
+    dates_msg <- df %>%
+                    filter(`From the Chair - Title` == ""Dates for your calendar"") %>%
+                    pull(`From the Chair`)
+    cat(paste(""\n"",dates_msg,""\n \n"",sep="" ""))
+    }
+
+  else if (any(!is.na(df[[cat]]))) {
+    if (cat == ""Publication""){
+      #create category header
+      cat(paste(""#"",cat,""\n"",sep="" ""))
+      #loop through updates for each category
+      dfx <- df %>% filter(is.na(df[[cat]]) == FALSE)
+      for (i in 1:length(dfx[[cat]])){
+        #set up vars
+        up_title <- dfx[[paste(cat,"" - Title"", sep = """")]][i]
+        up_author <- dfx$Name[i]
+        up_email <- dfx$Email[i]
+        update <- dfx[[cat]][i]
+        link <- dfx$`Publication Link`[i]
+        #print statements
+        cat(""\n \n \n \n"")
+        cat(paste(""##"",up_title,""\n"",sep="" "")) #update title
+        cat(paste(""\n <i>"", up_author,"" ("",up_email,"")</i>"","" \n"",sep = """")) #author and email
+        cat(paste(""\n"",update,""\n \n"",sep="" ""))
+        cat(paste(""\n"",""Publication available at this link:"",link,""\n \n"",sep="" ""))
+      }}
+  
+      else if (cat == 'Photo') {
+        #create category header
+        cat(paste(""#"",cat,""\n"",sep="" ""))
+        #loop through updates for each category
+        dfx <- df %>% filter(is.na(df[[cat]]) == FALSE)
+        for (i in 1:length(dfx[[cat]])){
+          #set up vars
+          up_author <- dfx$Name[i]
+          up_email <- dfx$Email[i]
+          photofile <- with_drive_quiet(drive_download(dfx[[cat]][i],overwrite=TRUE))
+          caption <- dfx$`Photo Caption`[i]
+          #print statements
+          cat(""\n \n \n \n"")
+          cat(paste0(""![]("", photofile$local_path, "")\n\n""))
+          cat(paste(""\n <i>"", up_author,"" ("",up_email,"")</i>"","" \n"",sep = """")) #author and email
+          cat(paste(""\n"",caption,""\n \n"",sep="" ""))
+          cat(""******"")
+      }}
+    
+      else{
+        #create category header
+        cat(paste(""#"",cat,""\n"",sep="" ""))
+        #loop through updates for each category
+        dfx <- df %>% filter(is.na(df[[cat]]) == FALSE)
+        for (i in 1:length(dfx[[cat]])){
+          #set up vars
+          up_title <- dfx[[paste(cat,"" - Title"", sep = """")]][i]
+          up_author <- dfx$Name[i]
+          up_email <- dfx$Email[i]
+          update <- dfx[[cat]][i]
+          #print statements
+          cat(""\n \n \n \n"")
+          cat(paste(""##"",up_title,""\n"",sep="" "")) #update title
+          cat(paste(""\n <i>"", up_author,"" ("",up_email,"")</i>"","" \n"",sep = """")) #author and email
+          cat(paste(""\n"",update,""\n \n"",sep="" ""))
+      }}}
+}
+"
+"1","# From the Chapter Leaders 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Message from the Chapter Leaders 
+"
+"1","
+ <i>Rhea and Liz (nwssmm.leaders@gmail.com)</i> 
+"
+"1","
+ Hi NWSSMMers! Happy fall and welcome to the inaugural issue of the biannual newsletter!
+
+We are so excited to see all the research updates, bloopers, and field photos you shared. For now, we’re planning to release newsletter issues in September (to capture any field season updates) and February (to be ready for any spring defenses and annual meeting planning). If you have comments, suggestions, or questions about the newsletter, please direct them to your leaders Rhea and Liz. Huge thank you to Clara Bird for designing the newsletter!
+
+For many of us, fall marks the tail end (the fluke?) of the field season and the start of a winter hibernation full of writing, analysis, and classes. Good luck especially to all our members who are planning to finish up in the next year—don’t forget to share your defense date and link with us so we can cheer you on! As we start the new school year, be sure to reach out to any new marine mammal students and let them know about this group and how to join. We’d love to see some new faces at our next meeting in May!
+
+Merch!
+
+Your leaders (past and present) have been tirelessly searching the internet for good small-batch merch solutions for students in Canada and the US, and we think we’ve figured out a system. We’ll be sharing details on how to order merch with the NWSSMM logo on it in the coming months. Stay tuned! 
+ 
+"
+"1","# Research Update 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## New PhD Student! 
+"
+"1","
+ <i>Natalie Chazal (natalie.chazal@oregonstate.edu)</i> 
+"
+"1","
+ Hello everyone! I'm Natalie Chazal and I'm an incoming PhD student in the GEMM Lab at Oregon State University. This next semester I'll be jumping right into a project that uses image segmentation (or other AI/ML methods) to quantify prey patches using the echosounder data collected during the past few years of gray whale sightings. When I get further along in my program, I will also be doing a scar analysis of the PCFG gray whales. Eventually, we hope to relate behavioral or health-related discrepancies in the whales to specific scar features. 
+ 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Presented Work at the Royal Institute of Navigation's Animal Navigation Conference 
+"
+"1","
+ <i>Kathleen Gill (k.gill@oceans.ubc.ca)</i> 
+"
+"1","
+ I traveled to Royal Holloway College in the UK in April to present preliminary results from my thesis to other researchers in the field of animal navigation. This conference provided a great opportunity to share with others the approach that I am using to understand how southern elephant seals are able to make long-distance journeys across the open ocean and return to their breeding islands with pinpoint accuracy. I received lots of valuable feedback and suggestions on my analysis and made professional connections with researchers studying similar questions. Since the conference covered animal navigation generally, there were many interesting topics that were discussed, from how domesticated dogs are able to navigate back to their owners to how small photoreceptors called cryptochromes in the eyes of animals might be used to view the Earth's magnetic field. There was also lots of lively debate about areas of navigational research that are still in the early stages of scientific understanding, which gave me a good sense about what topics are at the forefront of exploratory research. Overall, this conference was a great opportunity to learn about the field of animal navigation and advance my research. 
+ 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Polar bear health in the southern Beaufort Sea 
+"
+"1","
+ <i>Sarah Teman (steman@uw.edu)</i> 
+"
+"1","
+ My graduate research, advised by Dr. Kristin Laidre at UW and in collaboration with Dr. Todd Atwood at the USGS Alaska Science Center, focuses on understanding the health of polar bears in the southern Beaufort (SB) Sea, located off northern Alaska and northwestern Canada. This subpopulation is declining due to the effects of climate change. Polar bears need the sea ice to hunt their prey, and loss of sea ice has resulted in fewer hunting opportunities. This has caused some bears to move onshore in search for food, which can expose bears to pathogens, pollution, or adverse human interaction.
+For my first chapter, I am modeling cumulative physiologic stress for SB bears. My second chapter aims to use a novel method to measure blood sugar in polar bears to understand fasting and reproductive success. We hope that gaining a better understanding of individual and population health will help with monitoring and conservation efforts for this vulnerable subpopulation. 
+ 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Cataloging the canaries of the sea: studying vocal behavior, kinship and microbial transfer in Cook Inlet beluga whales 
+"
+"1","
+ <i>Arial Brewer (arialb@uw.edu)</i> 
+"
+"1","
+ I'm sharing a link to an article my department did on my current research recently: https://fish.uw.edu/2023/08/cataloging-the-canaries-of-the-sea-studying-vocal-behavior-kinship-and-microbial-transfer-in-cook-inlet-beluga-whales/ 
+ 
+"
+"1","# Fieldwork Update 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Winter at the Western Antarctic Peninsula 
+"
+"1","
+ <i>Rachel Kaplan (kaplarac@oregonstate.edu)</i> 
+"
+"1","
+ How does winter diet impact krill, a keystone species, biogeochemical powerhouse, and juicy prey item in the Southern Ocean? Through a series of lab experiments and field collections, a project called ""The Omnivore’s Dilemma: The effect of autumn diet on winter physiology and condition of juvenile Antarctic krill"" is investigating the impact of climate-driven changes in diet on the health of juvenile krill in winter and autumn, a crucial period for their survival and recruitment. A team currently deployed for the project’s third winter field season consists of Dr. Kim Bernard, PhD student Rachel Kaplan, and undergraduate Abby Tomita, all from Oregon State University. During this six-month field season, they completed two research cruises along the Western Antarctic Peninsula, collecting both live and preserved samples, acoustic data, and more. Currently, they are living at Palmer Station where they will remain until October, conducting long-term diet experiments to elucidate the implications of the shifting polar food web for Antarctic krill -- and the potential impacts for top predators in the ecosystem, including several species of fish, seabirds, seals, and whales. 
+ 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## 8th field season for GEMM Lab GRANITE Project 
+"
+"1","
+ <i>Clara Bird (clara.bird@oregonstate.edu)</i> 
+"
+"1","
+ The GEMM Lab (Marine Mammal Institute, Oregon State University) is half way through their 8th consecutive season collecting data on the PCFG gray whales in the central Oregon coast region between Waldport and Lincoln City. Our field season is underway and runs from June to mid-October as we collect multidisciplinary data of gray whales including photo-ID images, fecal samples for hormone, prey, and microparticle assessment, drone footage for body condition and behavior analysis, and accelerometry data from tags for energetic and behavior assessment. So far, we have had 26 days on the water and collected data from 49 individual whales. 
+
+Grad students Lisa Hildebrand and Clara Bird are using these data for their PhDs.
+
+This data informs our GRANITE project that you can read more about here: https://mmi.oregonstate.edu/gemm-lab/granite-gray-whale-response-ambient-noise-informed-technology-ecology 
+ 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Gray Whale Foraging Ecology Fieldwork in Port Orford, OR 
+"
+"1","
+ <i>Allison Dawn (dawna@oregonstate.edu)</i> 
+"
+"1","
+ The GEMM Lab has just completed the 9th consecutive year of studying gray whale foraging ecology in Port Orford, OR. This project has been a legacy for both scientific data collection and mentorship for high school and undergraduate students. This was my third year leading the project and it felt like a special victory as I had just completed my MSc. defense in June! 
+ 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Sarasota Dolphin Surveys 
+"
+"1","
+ <i>Kyra Bankhead (bankheak@oregonstate.edu)</i> 
+"
+"1","
+ I used my ABS travel grant to work directly with mentors at the Sarasota Dolphin Research Program to gain hands on experience conducting focal dolphin group follows and fish surveys. 
+ 
+"
+"1","# Publication 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Zoop to poop: assessment of microparticle loads in gray whale zooplankton prey and fecal matter reveal high daily consumption rates 
+"
+"1","
+ <i>Lisa Hildebrand (Lisa.Hildebrand@oregonstate.edu)</i> 
+"
+"1","
+ The ocean continues to be a sink for microparticle (MP) pollution, which includes microplastics and other anthropogenic debris. While documentation of MP in marine systems is now common, we lack information on rates of MP ingestion by baleen whales and their prey. We collected and assessed MP loads in zooplankton prey and fecal samples of gray whales (Eschrichtius robustus) feeding in coastal Oregon, USA and produced the first estimates of baleen whale MP consumption rates from empirical data of zooplankton MP loads (i.e., not modeled). All zooplankton species examined were documented gray whale prey items (Atylus tridens, Holmesimysis sculpta, Neomysis rayii) and contained an average of 4 MP per gram of tissue, mostly of the microfiber morphotype. We extrapolated MP loads in zooplankton prey to estimate the daily MP consumption rates of pregnant and lactating gray whales, which ranged between 6.5 and 21 million MP/day. However, these estimates do not account for MP ingested from ambient water or benthic sediments, which may be high for gray whales given their benthic foraging strategy. We also assessed MP loads in fecal samples from gray whales feeding in the same spatio-temporal area and detected MP in all samples examined, which included microfibers and significantly larger morphotypes than in the zooplankton. We theorize that gray whales ingest MP via both indirect trophic transfer from their zooplankton prey and directly through indiscriminate consumption of ambient MPs when foraging benthically where they consume larger MP morphotypes that have sunk and accumulated on the seafloor. Hence, our estimated daily MP consumption rates for gray whales are likely conservative because they are only based on indirect MP ingestion via prey. Our results improve the understanding of MP loads in marine ecosystems and highlight the need to assess the health impacts of MP consumption on zooplankton and baleen whales, particularly due to the predominance of microfibers in samples, which may be more toxic and difficult to excrete than other MP types. Furthermore, the high estimated rates of MP consumption by gray whales highlights the need to assess health consequences to individuals and subsequent scaled-up effects on population vital rates. 
+ 
+"
+"1","
+ Publication available at this link: https://www.frontiersin.org/articles/10.3389/fmars.2023.1201078/full 
+ 
+"
+"1","# Research Blooper 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Milk Carton Magic 
+"
+"1","
+ <i>Allison Dawn (dawna@oregonstate.edu)</i> 
+"
+"1","
+ Our TDR sensor cage was lost to the ocean so while the dive team searched for it I invented a new cage using an old milk carton! 
+ 
+"
+"1","
+ 
+ 
+ 
+"
+"1","## Impromptu Snorkelling 
+"
+"1","
+ <i>Jennifer Liu (jenniferwuqunliu@gmail.com)</i> 
+"
+"1","
+ While setting up an experiment, the GoPro fell off its mount and dropped to the bottom of the 10 ft research pool. We went to get a net to fish it out but in the few minutes we were waiting for the net, it started to POUR rain (in the middle of what should have been drought season!). The fat rain droplets hitting the surface of the water made it impossible to see where the camera was and every second we spent out there the rain was getting heavier. Eventually, we called for a snorkel mask and I had to get down on my knees on the shallow water ledge, hold my breath, and stick my face into the salty, dirty water to direct the net to the right position. Even then, it took us multiple tries (and people) to fish the GoPro out. I was so soaked, it took 3 days for my shoes to fully dry! 
+ 
+"
+"1","# Small Victory 
+"
+"1","
+ 
+ 
+ 
+"
+"1","##  
+"
+"1","
+ <i>Zoe Rand (zrand@uw.edu)</i> 
+"
+"1","
+ This year, I was one of eight graduate students chosen for the 2023 National Marine Fisheries Service (NMFS)-Sea Grant Joint Fellowship in population and ecosystem dynamics. Fellows’ research is centered around modeling and managing living marine resource systems, including fish, invertebrates, marine mammals, and seabirds. Throughout the fellowship, we receive guidance from our faculty advisor and a mentor from NOAA Fisheries, and we participate in research symposiums. This fellowship allows me to continue my PhD research at the University of Washington, which focuses on the quantitative analysis of historical whaling data to investigate the population dynamics of whales affected by commercial whaling, with my advisor, Trevor Branch, and my NOAA mentor, Paul Wade. 
+ 
+"
+"1","
+ 
+ 
+ 
+"
+"1","##  
+"
+"1","
+ <i>Liz Allyn (liz.allyn@makah.com)</i> 
+"
+"1","
+ The Makah Tribe's Marine Mammal Program had a blast running the Makah Fisheries summer internship program again this summer! Check out what our 4 awesome interns got up to on the program website: https://mfminterns.home.blog 
+ 
+"
+"1","# Photo 
+"
+"1","[1m[33mError[39m in `map()`:[22m
+[38;5;250m[36mℹ[38;5;250m In index: 1.[39m
+[1mCaused by error in `gargle_abort_request_failed()`:[22m
+[38;5;250m[33m![38;5;250m Client error: (403) Forbidden
+Request had insufficient authentication scopes.
+PERMISSION_DENIED
+[36m•[38;5;250m message: Insufficient Permission
+[36m•[38;5;250m domain: global
+[36m•[38;5;250m reason: insufficientPermissions[39m
+Backtrace:
+[90m  1. [39m[1mgoogledrive[22m::with_drive_quiet(drive_download(dfx[[cat]][i], overwrite = TRUE))
+[90m  4. [39mgoogledrive::drive_download(dfx[[cat]][i], overwrite = TRUE)
+[90m  6. [39mgoogledrive:::as_dribble.character(file)
+[90m 10. [39mgoogledrive::drive_get(path = x)
+[90m 12. [39m[1m[94mpurrr::map([39m[22mas_id(id), get_one_file_id[1m[94m)[39m[22m
+[90m 13. [39mpurrr:::map_(""list"", .x, .f, ..., .progress = .progress)
+[90m 17. [39m[1mgoogledrive[22m (local) .f(.x[[i]], ...)
+[90m 18. [39m[1mgargle[22m::response_process(response)
+[90m 19. [39m[1m[94mgargle:::gargle_abort_request_failed([39m[22merror_message(resp), resp[1m[94m)[39m[22m
+"
