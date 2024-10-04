@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/NewsletterNWSSMM/README.md",
     "project_path": "README.md",
     "type": "markdown",
-    "hash": "0",
+    "hash": "2246098919",
     "contents": "",
     "dirty": false,
     "created": 1728077513448.0,
@@ -11,14 +11,16 @@
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
-        "Source": "Source"
+        "Source": "Source",
+        "cursorPosition": "8,38",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1728077491,
+    "lastKnownWriteTime": 1728079121,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1728077491,
+    "last_content_update": 1728079121436,
     "read_only": false,
     "read_only_alternatives": []
 }
