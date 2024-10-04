@@ -26,16 +26,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ## RUN THIS CHUNK BEFORE KNITTING!!!!!!!!!!!!!!!!! ##
 
 #packges
+library(rmdformats)
 library(googledrive)
 library(googlesheets4) #https://www.tidyverse.org/blog/2020/05/googlesheets4-0-2-0/
 library(tidyverse)
 
-options(googledrive_quiet = TRUE)
-options(gargle_oauth_email = "birdc@oregonstate.edu")
-drive_auth(email="birdc@oregonstate.edu")
+options(googledrive_quiet = F)
+options(gargle_oauth_email = "nwssmm.leaders@gmail.com")
+gs4_auth(email="nwssmm.leaders@gmail.com")
 
 #make sure that the link to the sheet is correct
-df_responses <- read_sheet("https://docs.google.com/spreadsheets/d/1tTIP-HUZuOHWXRFThQsO7wvLhqPxi3yR_GH1ae0GjrU/edit#gid=2106727867", col_types = "c", skip = 1)
+sheet_id <- as_sheets_id("https://docs.google.com/spreadsheets/d/1tTIP-HUZuOHWXRFThQsO7wvLhqPxi3yR_GH1ae0GjrU/edit?gid=2106727867#gid=2106727867")
+df_responses <- read_sheet(sheet_id, col_types = "c", skip = 1)
 ```
 
 
