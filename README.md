@@ -1,5 +1,9 @@
 # NewsletterNWSSMM
 
+Created by Clara Bird (cbirdferrer)
+
+-----
+
 Files to create the bi-annual NWSSMM newsletters using google form responses submitted by group members.
 
 1. Open NWSSMM_newsletter.Rmd and edit the spreadsheet links as needed.
